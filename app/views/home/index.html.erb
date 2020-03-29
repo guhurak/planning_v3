@@ -1,1 +1,5 @@
-bonjour
+<% if current_user&.is_authorized %>
+  <%= render partial: "home/table" %>
+<% else %>
+  Vous n'êtes pas authorisé sur l'application, veuillez contacter un des administrateur afin de pouvoir avoir la permission de voir le contenu.
+<% end %>

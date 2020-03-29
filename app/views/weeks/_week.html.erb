@@ -1,0 +1,30 @@
+<table class="table" id="week-<%= week.id %>">
+  <thead>
+    <tr>
+      <th>Lu</th>
+      <th>Ma</th>
+      <th>Me</th>
+      <th>Je</th>
+      <th>Ve</th>
+      <th>Sa</th>
+      <th><span>di</span><%= link_to "", week_path(week.id), method: :delete, remote: true, class: "text-decoration-none fas fa-times float-right" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.each do |user| %>
+      <% days = week.days.select{|day| day.user_id == user.id}.first %>
+      <% if days
+        assigns = JSON.parse(days.assigns) %>
+        <tr>
+          <td><%= text_field_tag "day_#{days.id}_mo", assigns["mo"], class: "form-control day-form", style: "min-width:40px;", data: {id: days.id, day: "mo"} %></td>
+          <td><%= text_field_tag "day_#{days.id}_tu", assigns["tu"], class: "form-control day-form", style: "min-width:40px;", data: {id: days.id, day: "tu"} %></td>
+          <td><%= text_field_tag "day_#{days.id}_we", assigns["we"], class: "form-control day-form", style: "min-width:40px;", data: {id: days.id, day: "we"} %></td>
+          <td><%= text_field_tag "day_#{days.id}_th", assigns["th"], class: "form-control day-form", style: "min-width:40px;", data: {id: days.id, day: "th"} %></td>
+          <td><%= text_field_tag "day_#{days.id}_fr", assigns["fr"], class: "form-control day-form", style: "min-width:40px;", data: {id: days.id, day: "fr"} %></td>
+          <td><%= text_field_tag "day_#{days.id}_sa", assigns["sa"], class: "form-control day-form", style: "min-width:40px;", data: {id: days.id, day: "sa"} %></td>
+          <td><%= text_field_tag "day_#{days.id}_su", assigns["su"], class: "form-control day-form", style: "min-width:40px;", data: {id: days.id, day: "su"} %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,18 @@
+<div class="row row-cols-1 row-cols-md-3 m-2">
+  <div class="col mb-4">
+    <div class="card h-100 text-center">
+      <div class="bg-secondary d-flex justify-content-center align-items-center text-white" style="height:200px"><%= @users_count %></div>
+      <div class="card-body">
+        <p class="card-text"><%= link_to "Utilisateurs", users_path %></p>
+      </div>
+    </div>
+  </div>
+  <div class="col mb-4">
+    <div class="card h-100 text-center">
+      <div class="bg-secondary d-flex justify-content-center align-items-center text-white" style="height:200px"><%= @weeks_count %></div>
+      <div class="card-body">
+        <p class="card-text"><%= link_to "Semaines du planning", weeks_path %></p>
+      </div>
+    </div>
+  </div>
+</div>

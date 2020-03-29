@@ -1,0 +1,63 @@
+<% week_days = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"] %>
+
+
+<%= @month_selected %> <%= @year_selected %>
+<div class="overflow-auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Utilisateur</th>
+        <% Time.days_in_month(@month_selected, @year_selected).times do |day| %>
+          <th><%= week_days[Date.new(@year_selected, @month_selected, day + 1).wday - 1] %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <th><%= user.name %></th>
+          <%
+          actual_week = @weeks_more + 1
+          day_in_the_week = @days_more + 1
+          days = user.days.find_by(week: @weeks[actual_week - 1])
+          week_temp = actual_week.dup
+
+          Time.days_in_month(@month_selected, @year_selected).times do
+            unless week_temp == actual_week
+              days = JSON.parse(user.days.find_by(week_id: @weeks[actual_week - 1].id).assigns)
+              week_temp = actual_week.dup
+            end
+            p days
+            if days
+              case day_in_the_week
+              when 1
+                day_name = days["mo"]
+              when 2
+                day_name = days["tu"]
+              when 3
+                day_name = days["we"]
+              when 4
+                day_name = days["th"]
+              when 5
+                day_name = days["fr"]
+              when 6
+                day_name = days["sa"]
+              when 7
+                day_name = days["su"]
+              end %>
+              <td><%= day_name %></td>
+            <% end
+            day_in_the_week += 1
+
+            if day_in_the_week > 7
+              actual_week += 1
+              day_in_the_week = 1
+            end
+            actual_week = 1 if actual_week > @weeks_nbr
+          end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

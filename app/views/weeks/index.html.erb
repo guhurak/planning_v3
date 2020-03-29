@@ -1,0 +1,38 @@
+<div class="w-100 overflow-auto">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <table class="table">
+            <thead>
+              <tr>
+                <td>Utilisateur</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.name %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </td>
+        <td id="weeks" class="d-flex">
+          <% @weeks.each do |week| %>
+            <%= render partial: "weeks/week", locals: {week: week, users: @users} %>
+          <% end %>
+        </td>
+        <td>
+          <table class="table">
+            <thead>
+              <tr>
+                <td><%= link_to "", weeks_path, method: :post, remote: true, class: "text-decoration-none fas fa-plus-square" %></td>
+              </tr>
+            </thead>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

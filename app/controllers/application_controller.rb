@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     end
 
     def is_authorized
-      unless current_user.is_authorized
+      unless current_user && current_user.is_authorized
         redirect_to root_path
       end
     end

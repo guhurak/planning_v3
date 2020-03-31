@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   before_action :is_admin
   before_action :is_authorized
   before_action :configure_permitted_parameters, if: :devise_controller?
+  skip_before_action :authenticate_user!, if: :devise_controller?
+  skip_before_action :is_admin, if: :devise_controller?
+  skip_before_action :is_authorized, if: :devise_controller?
 
   protected
 

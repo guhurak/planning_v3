@@ -25,7 +25,7 @@
 
           Time.days_in_month(@month_selected, @year_selected).times do
             unless week_temp == actual_week
-              assigns = user.days.find_by(week_id: @weeks[actual_week - 1]&.id).assigns
+              assigns = user.days.find_by(week_id: @weeks[actual_week - 1]&.id)&.assigns
               if assigns
                 days = JSON.parse(assigns)
               end

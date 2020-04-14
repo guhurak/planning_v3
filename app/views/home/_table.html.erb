@@ -25,10 +25,9 @@
 
           Time.days_in_month(@month_selected, @year_selected).times do
             unless week_temp == actual_week
-              days = JSON.parse(user.days.find_by(week_id: @weeks[actual_week - 1].id).assigns)
+              days = JSON.parse(user.days.find_by(week_id: @weeks[actual_week - 1]&.id).assigns)
               week_temp = actual_week.dup
             end
-            p days
             if days
               case day_in_the_week
               when 1
@@ -45,9 +44,11 @@
                 day_name = days["sa"]
               when 7
                 day_name = days["su"]
-              end %>
-              <td><%= day_name %></td>
-            <% end
+              end
+            else
+              day_name = ""
+            end %>
+            <td><%= day_name %></td>
             day_in_the_week += 1
 
             if day_in_the_week > 7

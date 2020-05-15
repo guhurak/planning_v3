@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   skip_before_action :is_admin, if: :devise_controller?
   skip_before_action :is_authorized, if: :devise_controller?
+  before_action :set_to_french
 
   protected
 
@@ -14,6 +15,10 @@ class ApplicationController < ActionController::Base
     end
 
   private
+
+    def set_to_french
+      I18n.default_locale = :fr      
+    end
 
     def is_admin
       unless current_user && current_user.is_authorized && current_user.is_admin

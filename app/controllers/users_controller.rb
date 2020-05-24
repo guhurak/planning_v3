@@ -1,14 +1,18 @@
 class UsersController < ApplicationController
+  skip_before_action :is_admin, only: [:show]
+  skip_before_action :is_authorized, only: [:show]
+
   def index
-    @authorised_user = User.authorized_users
-    @unauthorised_user = User.unauthorized_users
+    @users = params[:unauthorized].present? ? User.unauthorized_users : User.authorized_users
+    @unauthorized_users_count = User.unauthorized_users.count unless params[:unauthorized].present?
   end
 
   def show
-    if current_user.is_admin && current_user.is_authorized
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-    end
+    @user = current_user.is_admin && current_user.is_authorized ? User.find(params[:id]) : current_user
+  end
+
+  def switch_authorization
+    @user = User.find(params[:id])
+    @user.update(is_authorized: !@user.is_authorized)
   end
 end

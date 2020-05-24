@@ -1,0 +1,32 @@
+<% unless params[:unauthorized].present? %>
+  <%= link_to "Voir les utilisateurs non autorisés (#{@unauthorized_users_count})", users_path(unauthorized: true), class:"btn btn-info mt-2 ml-2" %>
+<% else %>
+  <%= link_to "Voir les utilisteurs autorisés", users_path, class:"btn btn-info mt-2 ml-2" %>
+<% end %>
+<table class="table mt-2">
+  <thead>
+    <tr>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Date d'incription</th>
+      <th>Administrateur ?</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr id="user-id-<%= user.id %>">
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+        <td><%= user.is_admin %></td>
+        <td>
+          <%= link_to user.is_authorized ? "Ne plus autoriser" : "Autoriser", switch_authorization_user_path(user.id), class:"btn btn-outline-#{user.is_authorized ? "danger" : "info"}", remote: true, method: :post %>
+          <%= link_to "Supprimer", user_registration_path(user.id), class:"btn btn-danger", remote: true, method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

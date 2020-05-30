@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     @month_selected = params[:month]&.to_i || DateTime.now.month
 
     @weeks = Week.all.includes(:days)
-    @users = User.all
+    @users = User.authorized_users
 
     @weeks_nbr = @weeks.count
 

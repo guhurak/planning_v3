@@ -20,4 +20,24 @@ window.loadDays = () => {
   })
 }
 
+window.loadAssistants = () => {
+  document.querySelectorAll('.assistant-form').forEach((el) => {
+    el.addEventListener('input', () => {
+      let count = el.value
+      setTimeout(() => {
+        if(el.value == count) {
+          axios({
+            method: 'PATCH',
+            url: '/assistants/0',
+            data: {
+              count: count
+            }
+          })
+        }
+      }, 500)
+    })
+  })
+}
+
+loadAssistants()
 loadDays()

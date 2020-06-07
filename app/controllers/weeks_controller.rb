@@ -2,6 +2,7 @@ class WeeksController < ApplicationController
   def index
     @users = User.authorized_users
     @weeks = Week.all.includes(:days).order(:id)
+    @assistants_count = Assistant.last&.count || 0
   end
 
   def create

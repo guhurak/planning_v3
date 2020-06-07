@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :assistants, only: [:update]
   resources :days
   resources :weeks
   devise_for :users

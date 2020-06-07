@@ -5,10 +5,11 @@ class HomeController < ApplicationController
   def index
     @year_selected = params[:year]&.to_i || DateTime.now.year
     @month_selected = params[:month]&.to_i || DateTime.now.month
-
+    
     @weeks = Week.all.includes(:days)
     @users = User.authorized_users
-
+    @assistants_count = Assistant.last&.count || 0
+    
     @weeks_nbr = @weeks.count
 
     months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]

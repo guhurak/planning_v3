@@ -1,3 +1,7 @@
+<div class=" m-2" style="max-width:200px;">
+  <%= label_tag :count, "Nombre d'assistants/es" %>
+  <%= number_field_tag :count, @assistants_count, class: "form-control assistant-form", min: 0 %>
+</div>
 <div class="w-100 overflow-auto">
   <table class="table">
     <tbody>

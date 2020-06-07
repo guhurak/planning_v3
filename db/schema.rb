@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_01_123235) do
+ActiveRecord::Schema.define(version: 2020_06_07_201835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assistants", force: :cascade do |t|
+    t.integer "count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "days", force: :cascade do |t|
     t.bigint "week_id"
@@ -45,7 +51,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_123235) do
   create_table "weeks", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "assists", default: 0, null: false
   end
 
 end

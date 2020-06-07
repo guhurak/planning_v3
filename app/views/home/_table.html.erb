@@ -2,7 +2,7 @@
 
 
 <%= @month_selected %> <%= @year_selected %>
-<div class="overflow-auto">
+<div class="w-100 overflow-auto">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -39,7 +39,7 @@
     <tbody>
       <% @users.each do |user| %>
         <tr>
-          <th><%= user.name %></th>
+          <th class="p-0"><div class="text-nowrap" style="padding:.75rem; height:49px;"><%= user.name %></div></th>
           <%
           actual_week = @weeks_more + 1
           day_in_the_week = @days_more + 1
@@ -83,6 +83,14 @@
             end
             actual_week = 1 if actual_week > @weeks_nbr
           end %>
+        </tr>
+      <% end %>
+      <% @assistants_count.times do %>
+        <tr>
+          <th class="p-0"><div class="w-100" style="height:49px;"></div></th>
+          <% Time.days_in_month(@month_selected, @year_selected).times do %>
+           <td></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

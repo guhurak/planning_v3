@@ -7,9 +7,32 @@
     <thead>
       <tr>
         <th>Utilisateur</th>
-        <% Time.days_in_month(@month_selected, @year_selected).times do |day| %>
-          <th><%= week_days[Date.new(@year_selected, @month_selected, day + 1).wday - 1] %></th>
-        <% end %>
+        <%
+          actual_week = @weeks_more + 1
+          day_in_the_week = @days_more + 1
+          week_temp = actual_week.dup
+
+          Time.days_in_month(@month_selected, @year_selected).times do
+            unless week_temp == actual_week
+              week_temp = actual_week.dup
+            end %>
+            <td class="pb-0 pt-0">
+              <div class="position-relative m-0 align-middle text-center" style="min-height:51px;">
+                <%= week_days[Date.new(@year_selected, @month_selected, day_in_the_week).wday - 1] %>
+                <% if day_in_the_week == 1 %>
+                  <span class="position-absolute" style="right:-10px;bottom:0px"><%= actual_week %></span>
+                <% end %>
+              </div>
+            </td>
+            <% day_in_the_week += 1
+
+            if day_in_the_week > 7
+              actual_week += 1
+              day_in_the_week = 1
+            end
+            actual_week = 1 if actual_week > @weeks_nbr
+          end
+        %>
       </tr>
     </thead>
 

@@ -5,10 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :days
-  scope :authorized_users, -> { where(is_authorized: true) }
-  scope :unauthorized_users, -> { where(is_authorized: false) }
-
-  default_scope { where(creator: false) }
+  scope :authorized_users, -> { where(is_authorized: true, creator: false) }
+  scope :unauthorized_users, -> { where(is_authorized: false, creator: false) }
 
   def name
     "#{first_name} #{last_name}"

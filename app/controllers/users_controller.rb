@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user.is_admin && current_user.is_authorized ? User.find(params[:id]) : current_user
+    @user = (current_user.is_admin && current_user.is_authorized) || current_user.creator ? User.find(params[:id]) : current_user
   end
 
   def switch_authorization

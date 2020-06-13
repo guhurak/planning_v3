@@ -14,5 +14,12 @@ class UsersController < ApplicationController
   def switch_authorization
     @user = User.find(params[:id])
     @user.update(is_authorized: !@user.is_authorized)
+    if @user.is_authorized
+      Week.all.each do |week|
+        week.days.create(user_id: @user.id, assigns: {mo: "", tu: "", we: "", th: "", fr: "", sa: "", su: ""}.to_json)
+      end
+    else
+      @user.days.destroy_all
+    end
   end
 end

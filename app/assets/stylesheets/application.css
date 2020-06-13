@@ -14,8 +14,22 @@
  *= require_self
  */
 
- @media print {
+ /*@media print {
    .overflow-auto {
      overflow: hidden;
    }
- }
+ }*/
+ @media print{
+  @page {
+    size: landscape
+  }
+  .overflow-auto {
+    overflow: visible !important
+  }
+  .btn {
+    display: none
+  }
+  .no-print-padding {
+    padding: 0
+  }
+}

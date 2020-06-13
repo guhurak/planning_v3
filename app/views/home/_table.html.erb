@@ -1,9 +1,18 @@
 <% week_days = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"] %>
-
-
-<%= @month_selected %> <%= @year_selected %>
-<div class="w-100 overflow-auto">
-  <table class="table table-bordered">
+<%
+  prev_year = @month_selected == 1 ? @year_selected - 1 : @year_selected
+  prev_month = @month_selected == 1 ? 12 : @month_selected - 1
+  next_year = @month_selected == 12 ? @year_selected + 1 : @year_selected
+  next_month = @month_selected == 12 ? 1 : @month_selected + 1
+%>
+<% console %>
+<div class="d-flex justify-content-around align-items-center w-100 p-2">
+  <%= link_to "Mois précédent", home_index_path(year: prev_year, month: prev_month), class: "btn btn-info" %>
+  <span><%= @month %> <%= @year_selected %></span>
+  <%= link_to "Mois suivant", home_index_path(year: next_year, month: next_month), class: "btn btn-info" %>
+</div>
+<div class="w-100 overflow-auto p-2 no-print-padding">
+  <table class="table table-bordered w-100">
     <thead>
       <tr>
         <th>Utilisateur</th>
@@ -16,11 +25,11 @@
             unless week_temp == actual_week
               week_temp = actual_week.dup
             end %>
-            <td class="pb-0 pt-0">
+            <td class="pt-0 pb-0" style="padding-left:5px; padding-right:5px;">
               <div class="position-relative m-0 align-middle text-center" style="min-height:51px;">
-                <%= week_days[Date.new(@year_selected, @month_selected, day_in_the_week).wday - 1] %>
+                <%= week_days[day_in_the_week - 1] %>
                 <% if day_in_the_week == 1 %>
-                  <span class="position-absolute" style="right:-10px;bottom:0px"><%= actual_week %></span>
+                  <span class="position-absolute" style="right:3px;bottom:0px"><%= actual_week %></span>
                 <% end %>
               </div>
             </td>

@@ -51,17 +51,22 @@
           <%
           actual_week = @weeks_more + 1
           day_in_the_week = @days_more + 1
-          days = user.days.find_by(week: @weeks[actual_week - 1])
+          days = user.days.find_by(week: @weeks[actual_week - 1])&.assigns
           week_temp = actual_week.dup
+          p @weeks
+          p actual_week
+          p days
 
           Time.days_in_month(@month_selected, @year_selected).times do
             unless week_temp == actual_week
               assigns = user.days.find_by(week_id: @weeks[actual_week - 1]&.id)&.assigns
+              p assigns
               if assigns
                 days = JSON.parse(assigns)
               end
               week_temp = actual_week.dup
             end
+            p days
             if days
               case day_in_the_week
               when 1

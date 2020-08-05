@@ -1,1 +1,5 @@
-<%= @user.name %>
+<div>
+  Nom : <%= @user.name %> <br>
+  Email : <%= @user.email %> <br>
+  <%= link_to "Editer", edit_user_registration_path, class:"btn btn-primary mt-2" %>
+</div>
